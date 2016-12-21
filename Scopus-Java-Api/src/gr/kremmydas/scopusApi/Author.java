@@ -14,9 +14,7 @@ public class Author {
 	}
 	
 	public Author(JSONObject source) {
-		super();
-		this.source = source.toString();
-		this.parse();
+		this(source.toString());
 	}
 
 	

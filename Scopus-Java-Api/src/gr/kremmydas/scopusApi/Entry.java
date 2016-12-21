@@ -33,9 +33,7 @@ public class Entry {
 	}
 	
 	public Entry(JSONObject source) throws ParseException {
-		super();
-		this.source = source.toString();
-		this.parse();
+		this(source.toString());
 	}
 	
 	
