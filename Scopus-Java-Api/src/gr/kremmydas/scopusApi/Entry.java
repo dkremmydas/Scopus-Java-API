@@ -56,18 +56,18 @@ public class Entry {
 		} catch (MalformedURLException e) {
 			this.apiUrl=null;
 		}
-		this.creator=(String)jsonObject.get("dc:creator");
-		this.keywords=(String)jsonObject.get("authkeywords");
-		this.volume=(String)jsonObject.get("prism:volume");
-		this.citedByCount=Integer.parseInt((String)jsonObject.get("citedby-count"));
-		this.sourceSubType=(String)jsonObject.get("subtypeDescription");
-		this.title=(String)jsonObject.get("dc:title");
-		this.issn=(String)jsonObject.get("prism:issn");
-		this.issue=(String)jsonObject.get("prism:issueIdentifier");
-		this.sourceName=(String)jsonObject.get("prism:publicationName");
-		this.pageRange=(String)jsonObject.get("prism:pageRange");
-		this.doi=(String)jsonObject.get("prism:doi");
-		this.scopusId=(String)jsonObject.get("dc:identifier");
+		this.creator=(jsonObject.get("dc:creator")!=null?( (String)jsonObject.get("dc:creator") ):"");
+		this.keywords=(jsonObject.get("authkeywords")!=null?( (String)jsonObject.get("authkeywords")):"");
+		this.volume=(jsonObject.get("prism:volume")!=null?((String)jsonObject.get("prism:volume")):"");
+		this.citedByCount=(jsonObject.get("citedby-count")!=null?Integer.parseInt((String)jsonObject.get("citedby-count")):0);
+		this.sourceSubType=(jsonObject.get("subtypeDescription")!=null?( (String)jsonObject.get("subtypeDescription")):"");
+		this.title=(jsonObject.get("dc:title")!=null?( (String)jsonObject.get("dc:title")):"");
+		this.issn=(jsonObject.get("prism:issn")!=null?( (String)jsonObject.get("prism:issn")):"");
+		this.issue=(jsonObject.get("prism:issueIdentifier")!=null?( (String)jsonObject.get("prism:issueIdentifier")):"");
+		this.sourceName=(jsonObject.get("prism:publicationName")!=null?( (String)jsonObject.get("prism:publicationName")):"");
+		this.pageRange=(jsonObject.get("prism:pageRange")!=null?( (String)jsonObject.get("prism:pageRange")):"");
+		this.doi=(jsonObject.get("prism:doi")!=null?( (String)jsonObject.get("prism:doi")):"");
+		this.scopusId=(jsonObject.get("dc:identifier")!=null?( (String)jsonObject.get("dc:identifier")):"");
 		
 		//create  authors
 		JSONArray jsAuthors = (JSONArray)jsonObject.get("author");
@@ -83,7 +83,7 @@ public class Entry {
 		if(affId!=null) {
 			for(Object o: affId) {
 				JSONObject jo = (JSONObject)o;
-				this.affiliations.add((String)jo.get("afid"));
+				if(jsonObject.get("afid")!=null) this.affiliations.add((String)jo.get("afid"));
 			}
 		}
 	}

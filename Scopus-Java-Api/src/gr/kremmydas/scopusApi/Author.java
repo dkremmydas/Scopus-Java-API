@@ -37,14 +37,14 @@ public class Author {
 		JSONObject jsonObject = (JSONObject)parser.parse(this.source);
 		
 		//get all fields
-		this.firstName=(String)jsonObject.get("given-name");
-		this.surname=(String)jsonObject.get("surname");
+		this.firstName=(jsonObject.get("given-name")!=null?((String)jsonObject.get("given-name")):"");
+		this.surname=(jsonObject.get("surname")!=null?((String)jsonObject.get("surname")):"");
 		try {
 			this.authorUrl=new URL((String)jsonObject.get("author-url"));
 		} catch (MalformedURLException e) {
 			this.authorUrl=null;
 		}
-		this.scopusID=(String)jsonObject.get("authid");
+		this.scopusID=(jsonObject.get("authid")!=null?((String)jsonObject.get("authid")):"");
 		
 		//get afifliation id
 		JSONArray affId=(JSONArray)jsonObject.get("afid");
