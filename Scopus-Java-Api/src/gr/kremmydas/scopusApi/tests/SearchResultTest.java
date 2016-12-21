@@ -1,11 +1,12 @@
 package gr.kremmydas.scopusApi.tests;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
+import org.json.simple.parser.ParseException;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.google.gson.Gson;
+import gr.kremmydas.scopusApi.SearchResult;
 
 public class SearchResultTest {
 	
@@ -18,10 +19,17 @@ public class SearchResultTest {
 
 	@Test
 	public void test() {
-		Gson gson = new Gson();
-		String sr = gson.fromJson(this.s, String.class);
-		System.out.println(sr);
-		fail("Not yet implemented");
+
+		try {
+			SearchResult sr = new SearchResult(this.s);
+			System.out.println(sr.getTotalResults());
+			System.out.println(sr.getSearchTerms());
+			
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		assertTrue(true);
 	}
 
 }
