@@ -13,7 +13,7 @@ public class SearchResult {
 	
 	private int totalResults;
 	private String searchTerms;
-	private ArrayList<Entry> entries;
+	private ArrayList<Entry> entries=new ArrayList<>();
 	
 	public SearchResult(String source) throws ParseException {
 		super();
@@ -30,12 +30,14 @@ public class SearchResult {
 				(String)((JSONObject)jsonObject.get("opensearch:Query")).get("@searchTerms")
 		);
 		
-		
-		JSONArray jsEntries = (JSONArray)jsonObject.get("entry");
-		for(Object o: jsEntries) {
-			JSONObject jo = (JSONObject)o;
-			this.entries.add(new Entry(jo));
+		if(this.totalResults>0) {
+			JSONArray jsEntries = (JSONArray)jsonObject.get("entry");
+			for(Object o: jsEntries) {
+				JSONObject jo = (JSONObject)o;
+				this.entries.add(new Entry(jo));
+			}
 		}
+		
 		
 		
 	}

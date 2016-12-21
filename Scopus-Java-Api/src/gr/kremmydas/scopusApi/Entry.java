@@ -21,9 +21,8 @@ public class Entry {
 	private String sourceSubType;private String title;private String issn;
 	private String issue; private String sourceName; private String pageRange;
 	private String doi; private String scopusId;
-	
-	
-	private ArrayList<Author> authors;
+	private ArrayList<String> affiliations=new ArrayList<>();
+	private ArrayList<Author> authors=new ArrayList<>();
 	
 
 	public Entry(String source) throws ParseException {
@@ -72,12 +71,21 @@ public class Entry {
 		
 		//create  authors
 		JSONArray jsAuthors = (JSONArray)jsonObject.get("author");
-		for(Object o: jsAuthors) {
-			JSONObject jo = (JSONObject)o;
-			this.authors.add(new Author(jo));
+		if(jsAuthors!=null) {
+			for(Object o: jsAuthors) {
+				JSONObject jo = (JSONObject)o;
+				this.authors.add(new Author(jo));
+			}
 		}
-		
-		
+				
+		//get affiliations of the article
+		JSONArray affId=(JSONArray)jsonObject.get("affiliation");
+		if(affId!=null) {
+			for(Object o: affId) {
+				JSONObject jo = (JSONObject)o;
+				this.affiliations.add((String)jo.get("afid"));
+			}
+		}
 	}
 
 	public String getSource() {

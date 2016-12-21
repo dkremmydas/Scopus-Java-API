@@ -8,6 +8,7 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
+import org.json.simple.parser.ParseException;
 
 import gr.kremmydas.scopusApi.SearchResult;
 
@@ -31,8 +32,20 @@ public class RESTclient {
 
 
 	public SearchResult search(String query) {
-			SearchResult sr = new SearchResult("");
+		
+		
+			SearchResult sr;
 			URI theURI = null; String res;
+			
+			try {
+				sr = new SearchResult("");
+				return sr;
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return null;
+			}
+			
 	       
 			/*
 			//String theString= "query=doi("+URLEncoder.encode( doi , "UTF8" )+")"+ "&count="+ this.RESULTS_COUNT+"&view=" + this.view + "&" + this.ApiKey;
@@ -54,7 +67,7 @@ public class RESTclient {
 	        this.response.close();
 	        */
 	        
-	        return sr;
+	        //return sr;
 	}
 	
 	
