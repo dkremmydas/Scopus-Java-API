@@ -1,10 +1,12 @@
 package gr.kremmydas.scopusApi;
 
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -44,9 +46,38 @@ public class Entry {
 		JSONObject jsonObject = (JSONObject)parser.parse(this.source);
 		
 		//get all fields
-		
+		this.eid=(String)jsonObject.get("eid");
+		this.decription=(String)jsonObject.get("dc:description");
+		try {
+			this.coverDate = new SimpleDateFormat("MM yyyy").parse((String)jsonObject.get("prism:coverDate"));
+		} catch (java.text.ParseException e) {
+			this.coverDate = null;
+		}
+		this.sourceType=(String)jsonObject.get("prism:aggregationType");
+		try {
+			this.apiUrl=new URL((String)jsonObject.get("prism:url"));
+		} catch (MalformedURLException e) {
+			this.apiUrl=null;
+		}
+		this.creator=(String)jsonObject.get("dc:creator");
+		this.keywords=(String)jsonObject.get("authkeywords");
+		this.volume=(String)jsonObject.get("prism:volume");
+		this.citedByCount=Integer.parseInt((String)jsonObject.get("citedby-count"));
+		this.sourceSubType=(String)jsonObject.get("subtypeDescription");
+		this.title=(String)jsonObject.get("dc:title");
+		this.issn=(String)jsonObject.get("prism:issn");
+		this.issue=(String)jsonObject.get("prism:issueIdentifier");
+		this.sourceName=(String)jsonObject.get("prism:publicationName");
+		this.pageRange=(String)jsonObject.get("prism:pageRange");
+		this.doi=(String)jsonObject.get("prism:doi");
+		this.scopusId=(String)jsonObject.get("dc:identifier");
 		
 		//create  authors
+		JSONArray jsAuthors = (JSONArray)jsonObject.get("author");
+		for(Object o: jsAuthors) {
+			JSONObject jo = (JSONObject)o;
+			this.authors.add(new Author(jo));
+		}
 		
 		
 	}

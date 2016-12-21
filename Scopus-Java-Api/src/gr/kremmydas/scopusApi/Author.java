@@ -1,14 +1,10 @@
 package gr.kremmydas.scopusApi;
 
-import java.util.HashMap;
+import org.json.simple.JSONObject;
 
 public class Author {
 	
 	private String source;
-	
-	private HashMap<String,String> properties;
-	
-	
 	
 	
 	public Author(String source) {
@@ -16,12 +12,16 @@ public class Author {
 		this.source = source;
 		this.parse();
 	}
+	
+	public Author(JSONObject source) {
+		super();
+		this.source = source.toString();
+		this.parse();
+	}
 
-
-
-
+	
 	private void parse() {
-		
+		System.out.println(this.source);
 	}
 
 }
