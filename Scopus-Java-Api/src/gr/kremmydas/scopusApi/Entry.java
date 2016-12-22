@@ -46,7 +46,7 @@ public class Entry {
 		this.eid=(String)jsonObject.get("eid");
 		this.decription=(String)jsonObject.get("dc:description");
 		try {
-			this.coverDate = new SimpleDateFormat("MM yyyy").parse((String)jsonObject.get("prism:coverDate"));
+			this.coverDate = new SimpleDateFormat("yyyy-MM-dd").parse((String)jsonObject.get("prism:coverDate"));
 		} catch (java.text.ParseException e) {
 			this.coverDate = null;
 		}
